@@ -2,8 +2,8 @@ import React, { useEffect, useCallback, useState } from "react";
 import { Container, Nav } from "react-bootstrap";
 import { login, logout as destroy, accountBalance } from "./utils/near";
 import Wallet from "./components/Wallet";
-// import { Notification } from "./components/utils/Notifications";
-// import Tours from "./components/tours/Tour";
+import { Notification } from "./components/utils/Notifications";
+import Tours from "./components/tours/Tour";
 import Cover from "./components/utils/Cover";
 import coverImg from "./assets/img/path.jpg";
 import "./App.css";
@@ -23,7 +23,7 @@ const App = function AppWrapper() {
 
     return (
         <>
-            {/* <Notification /> */}
+            {<Notification />}
             {account.accountId ? (
                 <Container fluid="md">
                     <Nav className="justify-content-end pt-3 pb-5">
@@ -36,7 +36,7 @@ const App = function AppWrapper() {
                             />
                         </Nav.Item>
                     </Nav>
-                    <main>{/* <Tours /> */}</main>
+                    <main>{<Tours />}</main>
                 </Container>
             ) : (
                 <Cover name="NEAR Walking Tours" login={login} coverImg={coverImg} />
