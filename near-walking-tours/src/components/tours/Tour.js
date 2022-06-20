@@ -33,4 +33,4 @@ Tour.propTypes = {
     tour: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default tour;
+export default Tour;
