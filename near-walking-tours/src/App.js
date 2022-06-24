@@ -3,7 +3,7 @@ import { Container, Nav } from "react-bootstrap";
 import { login, logout as destroy, accountBalance } from "./utils/near";
 import Wallet from "./components/Wallet";
 import { Notification } from "./components/utils/Notifications";
-import Tours from "./components/tours/Tour";
+import Tours from "./components/tours/Tours";
 import Cover from "./components/utils/Cover";
 import coverImg from "./assets/img/path.jpg";
 import "./App.css";
@@ -39,10 +39,39 @@ const App = function AppWrapper() {
                     <main>{<Tours />}</main>
                 </Container>
             ) : (
-                <Cover name="NEAR Walking Tours" login={login} coverImg={coverImg} />
+                <Cover name="Street Food" login={login} coverImg={coverImg} />
             )}
         </>
     );
 };
 
 export default App;
+
+/*import React, { useCallback, useEffect, useState } from "react";
+import "./App.css";
+import { getTours } from "./utils/tours";
+import { login } from "./utils/near";
+
+function App() {
+    const account = window.walletConnection.account();
+    const [tours, setTours] = useState([]);
+    const fetchTours = useCallback(async () => {
+        if (account.accountId) {
+            setTours(await getTours());
+        }
+    });
+    useEffect(() => {
+        fetchTours();
+    }, []);
+    return (
+        <>
+            {account.accountId ? (
+                tours.forEach((tour) => console.log(tour))
+            ) : (
+                <button onClick={login}>CONNECT WALLET</button>
+            )}
+        </>
+    );
+}
+
+export default App;*/

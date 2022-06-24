@@ -23,7 +23,7 @@ const AddTour = ({ save }) => {
                 className="rounded-pill px-0"
                 style={{ width: "38px" }}
             >
-                <i class="bi bi-plus"></i>
+                <i className="bi bi-plus"></i>
             </Button>
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>

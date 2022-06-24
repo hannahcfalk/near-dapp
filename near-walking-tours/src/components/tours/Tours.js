@@ -57,6 +57,7 @@ const Tours = () => {
                     <Row xs={1} sm={2} lg={3} className="g-3  mb-5 g-xl-4 g-xxl-5">
                         {tours.map((_tour) => (
                             <Tour
+                                key={_tour.id }
                                 tour={{
                                     ..._tour,
                                 }}
