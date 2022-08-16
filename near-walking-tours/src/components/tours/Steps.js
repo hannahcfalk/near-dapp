@@ -5,44 +5,61 @@ import Step from "./Step";
 import Loader from "../utils/Loader";
 import { Col } from "react-bootstrap";
 import { NotificationSuccess, NotificationError } from "../utils/Notifications";
+import {
+    getSteps as getStepList,
+    createStep,
+} from "../../utils/steps";
 
 
-const Steps = ({ title }) => {
+const Steps = ({ title, tour }) => {
+    const [steps, setSteps] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    const getSteps = useCallback(async () => {
+        try {
+            setLoading(true);
+            setSteps(await getStepList(tour.id));
+        } catch (error) {
+            console.log({ error });
+        } finally {
+            setLoading(false);
+        }
+    });
 
     const addStep = async (data) => {
         try {
+            data["tour_id"] = tour.id;
             setLoading(true);
-            toast(<NotificationSuccess text="Walking tour added successfully." />);
+            console.log("add step " + tour.id);
+            createStep(data).then((resp) => {
+                getSteps(tour.id);
+            });
+            toast(<NotificationSuccess text="Step added successfully." />);
         } catch (error) {
             console.log({ error });
-            toast(<NotificationError text="Failed to create a walking tour." />);
+            toast(<NotificationError text="Failed to create a step." />);
         } finally {
             setLoading(false);
         }
     };
 
+    useEffect(() => {
+        getSteps();
+    }, []);
 
     return (
         <>
             {!loading ? (
                 <>
-                    <Step
-                        number={1}
-                        tour_id={"0"}
-                        name={"Jamaica Wine House"}
-                        description={"The Jamaica Wine House is almost impossible to find, unless you already know where it is! It was built on the site of London's first coffee house in the churchyard of a Dickensian church and, although it has historic links with the sugar trade and slave plantations of the West Indies, this is an atmospheric must-see, with the famous Todd's Wine Bar nested downstairs.?"}
-                        location={"St. Michaels Alley, Cornhill, EC3V 9DS"}
-                        image={"https://upload.wikimedia.org/wikipedia/commons/a/a2/Jamaica_Wine_House_20130323_049.jpg"}
-                    />
-                    <Step
-                        number={2}
-                        tour_id={"0"}
-                        name={"The Globe"}
-                        description={"The Globe is conveniently located a short stroll from Moorgate and Liverpool Street Underground Stations and the Barbican Centre. With its elegant rococo exterior, the pub runs along the line of a Roman Wall. It's situated close to the original site of notorious Bedlam (Bethlem) and the famous poet, John Keats, was also born in a stable next door."}
-                        location={"83 Moorgate, EC2M 6SA"}
-                        image={"https://upload.wikimedia.org/wikipedia/commons/7/77/Restaurante_The_Swan%2C_Londres%2C_Inglaterra%2C_2014-08-11%2C_DD_113.jpg"}
-                    />
+                    <h1>{title}</h1>
+                    {steps.map((_step) => (
+                        <Step
+                            key={_step.id}
+                            step={{
+                                ..._step,
+                            }}
+                        />
+                    ))}
                     <AddStep save={addStep} />
                 </>
             ) : (

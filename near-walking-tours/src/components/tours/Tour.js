@@ -33,7 +33,7 @@ const Tour = ({ tour }) => {
                 </Card>
             </div>
             <Modal size="lg" show={show} onHide={handleClose}>
-                <Steps title={title}/>
+                <Steps title={title} tour={tour}/>
             </Modal>
         </Col>
     );

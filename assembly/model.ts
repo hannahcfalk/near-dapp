@@ -2,15 +2,15 @@ import { PersistentUnorderedMap, u128, context } from "near-sdk-as";
 
 @nearBindgen
 export class Step {
-    number: i32;
+    id: string;
     tour_id: string;
     name: string;
     description: string;
     image: string;
     location: string;
-    public static fromPayload(payload: Step, number: i32): Step {
+    public static fromPayload(payload: Step): Step {
         const step = new Step();
-        step.number = number;
+        step.id = payload.id;
         step.tour_id = payload.tour_id;
         step.name = payload.name;
         step.description = payload.description;
@@ -28,7 +28,6 @@ export class Tour {
     image: string;
     location: string;
     price: u128;
-    steps: Step[];
     owner: string;
     public static fromPayload(payload: Tour): Tour {
         const tour = new Tour();
@@ -38,10 +37,10 @@ export class Tour {
         tour.image = payload.image;
         tour.location = payload.location;
         tour.price = payload.price;
-        tour.steps = [];
         tour.owner = context.sender;
         return tour;
     }
 }
 
 export const listedTours = new PersistentUnorderedMap<string, Tour>("t");
+export const listedSteps = new PersistentUnorderedMap<string, Step[]>("s");

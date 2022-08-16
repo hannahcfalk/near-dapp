@@ -4,6 +4,9 @@ import { Button, Modal, Form, FloatingLabel } from "react-bootstrap";
 
 const AddStep = ({ save }) => {
     const [name, setName] = useState("");
+    const [image, setImage] = useState("");
+    const [description, setDescription] = useState("");
+    const [location, setLocation] = useState("");
     const [show, setShow] = useState(false);
     const isFormFilled = () => name;
 
@@ -35,7 +38,47 @@ const AddStep = ({ save }) => {
                                 onChange={(e) => {
                                     setName(e.target.value);
                                 }}
-                                placeholder="Enter the name of your walking tour"
+                                placeholder="Enter the name of your walking tour step"
+                            />
+                        </FloatingLabel>
+                        <FloatingLabel
+                            controlId="inputDescription"
+                            label="Description"
+                            className="mb-3"
+                        >
+                            <Form.Control
+                                as="textarea"
+                                placeholder="description"
+                                style={{ height: "200px" }}
+                                onChange={(e) => {
+                                    setDescription(e.target.value);
+                                }}
+                            />
+                        </FloatingLabel>
+                        <FloatingLabel
+                            controlId="inputLocation"
+                            label="Location"
+                            className="mb-3"
+                        >
+                            <Form.Control
+                                type="text"
+                                placeholder="Location"
+                                onChange={(e) => {
+                                    setLocation(e.target.value);
+                                }}
+                            />
+                        </FloatingLabel>
+                        <FloatingLabel
+                            controlId="inputUrl"
+                            label="Image URL"
+                            className="mb-3"
+                        >
+                            <Form.Control
+                                type="text"
+                                placeholder="Image URL"
+                                onChange={(e) => {
+                                    setImage(e.target.value);
+                                }}
                             />
                         </FloatingLabel>
                     
@@ -51,6 +94,9 @@ const AddStep = ({ save }) => {
                         onClick={() => {
                             save({
                                 name,
+                                description,
+                                location,
+                                image,
                             });
                             handleClose();
                         }}

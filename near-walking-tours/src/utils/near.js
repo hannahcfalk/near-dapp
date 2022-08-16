@@ -17,7 +17,7 @@ export async function initializeContract() {
         window.walletConnection.account(),
         nearEnv.contractName,
         {
-            viewMethods: ["getTour", "getTours"],
+            viewMethods: ["getTour", "getTours", "getSteps"],
             changeMethods: ["setTour", "setStep", "deleteTour"],
         }
     );

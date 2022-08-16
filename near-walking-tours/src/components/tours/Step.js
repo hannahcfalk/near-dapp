@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Card, Row, Col } from "react-bootstrap";
 
-const Step = ({ number, tour_id, name, description, location, image }) => {
-
+const Step = ({ step }) => {
+    const { id, number, tour_id, name, description, location, image } =
+        step;
     return (
         <Card className="m-1" style={{ border: "solid 2px black" }} >
             <Row>
