@@ -42,6 +42,7 @@ const Tour = ({ tour, buy }) => {
         >
             Buy for {utils.format.formatNearAmount(price)} NEAR
         </Button>);
+        steps = <h5 className="text-center">Buy the walking tour to view the steps!</h5>
     }
 
     useEffect(() => {

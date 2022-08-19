@@ -1,9 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Card, Row, Col } from "react-bootstrap";
 
 const Step = ({ step }) => {
-    const { id, number, tour_id, name, description, location, image } =
+    const { name, description, location, image } =
         step;
     return (
         <Card className="m-1" style={{ border: "solid 2px black" }} >
@@ -15,7 +14,7 @@ const Step = ({ step }) => {
                 </Col>
                 <Col>
                      <Card.Body className="d-flex  flex-column text-center">
-                        <Card.Title>Step {number}: {name}</Card.Title>
+                        <Card.Title>{name}</Card.Title>
                         <Card.Text>{description}</Card.Text>
                         <Card.Text className="text-secondary">
                             <span>{location}</span>

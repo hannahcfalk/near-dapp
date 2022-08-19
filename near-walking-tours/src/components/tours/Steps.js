@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import AddStep from "./AddStep";
 import Step from "./Step";
 import Loader from "../utils/Loader";
-import { Col } from "react-bootstrap";
 import { NotificationSuccess, NotificationError } from "../utils/Notifications";
 import {
     getSteps as getStepList,
@@ -57,7 +56,7 @@ const Steps = ({ title, tour }) => {
         <>
             {!loading ? (
                 <>
-                    <h1>{title}</h1>
+                    <h1 className="text-center">{title}</h1>
                     {steps.map((_step) => (
                         <Step
                             key={_step.id}
