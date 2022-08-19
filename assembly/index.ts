@@ -1,5 +1,5 @@
-import { logging } from "near-sdk-as";
-import { Tour, listedTours, Step, listedSteps } from "./model";
+import { ContractPromiseBatch, context } from "near-sdk-as";
+import { Tour, listedTours, Step, listedSteps, owners } from "./model";
 
 export function setTour(tour: Tour): void {
     let storedTour = listedTours.get(tour.id);
@@ -39,4 +39,39 @@ export function getTours(): Tour[] {
 export function deleteTour(id: string): void {
     listedTours.delete(id);
     listedSteps.delete(id);
+}
+
+export function addTour(owner: string, id: string): void {
+    let storedOwner = owners.get(owner);
+    if (storedOwner === null) {
+        owners.set(owner, [id]);
+    }
+    else {
+        storedOwner.push(id);
+    }
+}
+
+export function checkOwner(owner: string, id: string): boolean {
+    let storedOwner = owners.get(owner);
+    if (storedOwner !== null) {
+        if (storedOwner.includes(id)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+export function buyTour(id: string): void {
+    const tour = getTour(id);
+    if (tour == null) {
+        throw new Error("tour not found");
+    }
+    if (tour.owner == context.sender || checkOwner(context.sender, id) ) {
+        throw new Error("cannot buy tour as user already owns tour")
+    }
+    if (tour.price.toString() != context.attachedDeposit.toString()) {
+        throw new Error("attached deposit should equal to the product's price");
+    }
+    ContractPromiseBatch.create(tour.owner).transfer(context.attachedDeposit);
+    addTour(context.sender, id);
 }

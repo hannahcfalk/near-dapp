@@ -8,6 +8,7 @@ import { NotificationSuccess, NotificationError } from "../utils/Notifications";
 import {
     getTours as getTourList,
     createTour,
+    buyTour,
 } from "../../utils/tours";
 
 const Tours = () => {
@@ -40,6 +41,20 @@ const Tours = () => {
         }
     };
 
+    const buy = async (id, price) => {
+        try {
+            await buyTour({
+                id,
+                price,
+            }).then((resp) => getTours());
+            toast(<NotificationSuccess text="Walking tour bought successfully" />);
+        } catch (error) {
+            toast(<NotificationError text="Failed to buy walking tour." />);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         getTours();
     }, []);
@@ -57,10 +72,11 @@ const Tours = () => {
                     <Row xs={1} sm={2} lg={3} className="g-3  mb-5 g-xl-4 g-xxl-5">
                         {tours.map((_tour) => (
                             <Tour
-                                key={_tour.id }
+                                key={_tour.id}
                                 tour={{
                                     ..._tour,
                                 }}
+                                buy={buy}
                             />
                         ))}
                     </Row>

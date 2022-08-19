@@ -39,39 +39,10 @@ const App = function AppWrapper() {
                     <main>{<Tours />}</main>
                 </Container>
             ) : (
-                <Cover name="Street Food" login={login} coverImg={coverImg} />
+                <Cover name="Near Walking Tours" login={login} coverImg={coverImg} />
             )}
         </>
     );
 };
 
 export default App;
-
-/*import React, { useCallback, useEffect, useState } from "react";
-import "./App.css";
-import { getTours } from "./utils/tours";
-import { login } from "./utils/near";
-
-function App() {
-    const account = window.walletConnection.account();
-    const [tours, setTours] = useState([]);
-    const fetchTours = useCallback(async () => {
-        if (account.accountId) {
-            setTours(await getTours());
-        }
-    });
-    useEffect(() => {
-        fetchTours();
-    }, []);
-    return (
-        <>
-            {account.accountId ? (
-                tours.forEach((tour) => console.log(tour))
-            ) : (
-                <button onClick={login}>CONNECT WALLET</button>
-            )}
-        </>
-    );
-}
-
-export default App;*/

@@ -12,3 +12,11 @@ export function createTour(tour) {
 export function getTours() {
     return window.contract.getTours();
 }
+
+export function checkOwner(owner, id) {
+    return window.contract.checkOwner({ owner, id });
+}
+
+export async function buyTour({ id, price }) {
+    await window.contract.buyTour({ id: id }, GAS, price);
+}

@@ -44,3 +44,4 @@ export class Tour {
 
 export const listedTours = new PersistentUnorderedMap<string, Tour>("t");
 export const listedSteps = new PersistentUnorderedMap<string, Step[]>("s");
+export const owners = new PersistentUnorderedMap<string, string[]>("o");
