@@ -43,6 +43,12 @@ const Steps = ({ title, tour }) => {
         }
     };
 
+    let addButton = null;
+    const account = window.walletConnection.account();
+    if (account.accountId === tour.owner) {
+        addButton = <AddStep save={addStep} />;
+    }
+
     useEffect(() => {
         getSteps();
     }, []);
@@ -60,7 +66,7 @@ const Steps = ({ title, tour }) => {
                             }}
                         />
                     ))}
-                    <AddStep save={addStep} />
+                    {addButton}
                 </>
             ) : (
                 <Loader />

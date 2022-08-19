@@ -28,11 +28,20 @@ const Tour = ({ tour, buy }) => {
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
-    let badge;
+    let badge = null;
+    let buyButton = null;
+    let steps = null;
     if (ownedTours || account.accountId === owner) {
         badge = <Badge bg="success" className="ms-auto">owned</Badge>;
+        steps = <Steps title={title} tour={tour} />;
     } else {
-        badge = null;
+        buyButton = (<Button
+            variant="outline-dark"
+            onClick={triggerBuy}
+            className="w-100 py-3"
+        >
+            Buy for {utils.format.formatNearAmount(price)} NEAR
+        </Button>);
     }
 
     useEffect(() => {
@@ -58,18 +67,12 @@ const Tour = ({ tour, buy }) => {
                         <Card.Text className="text-secondary">
                             <span>{location}</span>
                         </Card.Text>
-                        <Button
-                            variant="outline-dark"
-                            onClick={triggerBuy}
-                            className="w-100 py-3"
-                        >
-                            Buy for {utils.format.formatNearAmount(price)} NEAR
-                        </Button>
+                        {buyButton}
                     </Card.Body>
                 </Card>
             </div>
             <Modal size="lg" show={show} onHide={handleClose}>
-                <Steps title={title} tour={tour}/>
+                {steps}
             </Modal>
         </Col>
     );
